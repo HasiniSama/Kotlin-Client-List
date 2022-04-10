@@ -1,4 +1,4 @@
-package com.kln.android.clientlist
+package com.kln.android.myapplication
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.kln.android.clientlist", appContext.packageName)
+        assertEquals("com.kln.android.myapplication", appContext.packageName)
     }
 }

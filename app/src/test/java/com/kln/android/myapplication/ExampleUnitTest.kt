@@ -1,4 +1,4 @@
-package com.kln.android.clientlist
+package com.kln.android.myapplication
 
 import org.junit.Test
 
