@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="@string/name"
-            android:autofillHints="@string/client_name"
+            android:autofillHints="@string/name"
             android:inputType="textPersonName" />
 
         <LinearLayout
@@ -51,7 +51,7 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:hint="@string/lat"
-                android:autofillHints="@string/client_lat"
+                android:autofillHints="@string/lat"
                 android:inputType="numberDecimal" />
 
             <EditText
@@ -61,7 +61,7 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:hint="@string/lng"
-                android:autofillHints="@string/client_lng"
+                android:autofillHints="@string/lng"
                 android:inputType="numberDecimal" />
 
         </LinearLayout>

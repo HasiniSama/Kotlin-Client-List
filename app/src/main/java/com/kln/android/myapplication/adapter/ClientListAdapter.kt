@@ -9,6 +9,8 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.core.os.bundleOf
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.kln.android.myapplication.R
 import com.kln.android.myapplication.database.AppDatabase
@@ -40,6 +42,15 @@ class ClientListAdapter(private val mList: List<Client>, private val activity: A
         holder.closeBtn.setOnClickListener {
             holder.clientDao.remove(itemsViewModel)
             holder.card.removeAllViews()
+        }
+
+        holder.card.setOnClickListener {
+            val bundle = bundleOf(
+                "name" to itemsViewModel.name,
+                "lat" to itemsViewModel.lat,
+                "lng" to itemsViewModel.lng
+            )
+            it.findNavController().navigate(R.id.action_FirstFragment_to_mapsFragment, bundle)
         }
 
     }

@@ -11,9 +11,6 @@
     <string name="name">Name</string>
     <string name="lat">Latitude</string>
     <string name="lng">Longitude</string>
-    <string name="client_lng">6.9</string>
-    <string name="client_lat">79.8</string>
-    <string name="client_name">Hasini Samarathunga</string>
     <string name="add_client">Add Client</string>
     <string name="add_client_header">Add a new Client</string>
 

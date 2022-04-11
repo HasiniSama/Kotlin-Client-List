@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.kln.android.myapplication.adapter.ClientListAdapter
 import com.kln.android.myapplication.database.AppDatabase
 import com.kln.android.myapplication.databinding.FragmentFirstBinding
-import com.kln.android.myapplication.model.Client
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
