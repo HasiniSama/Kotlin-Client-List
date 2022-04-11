@@ -7,10 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.kln.android.myapplication.adapter.ClientListAdapter
+import com.kln.android.myapplication.database.AppDatabase
 import com.kln.android.myapplication.databinding.FragmentFirstBinding
-import com.kln.android.myapplication.model.ClientsViewModel
+import com.kln.android.myapplication.model.Client
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -30,25 +30,6 @@ class ClientListFragment : Fragment() {
 
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
 
-        // getting the recyclerview by its id
-        val recyclerview = binding.recyclerview
-
-        // this creates a vertical layout Manager
-        recyclerview.layoutManager = LinearLayoutManager(activity)
-
-        // ArrayList of class ItemsViewModel
-        val data = ArrayList<ClientsViewModel>()
-
-        // This loop will create 20 Views containing
-        // the image with the count of view
-        data.add(ClientsViewModel(R.drawable.ic_baseline_account_circle_24, "Hasini ", 1.2f, 2.3f))
-
-        // This will pass the ArrayList to our Adapter
-        val adapter = ClientListAdapter(data)
-
-        // Setting the Adapter with the recyclerview
-        recyclerview.adapter = adapter
-
         return binding.root
 
     }
@@ -56,9 +37,28 @@ class ClientListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        binding.buttonFirst.setOnClickListener {
-//            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-//        }
+        //creating the room database connection
+        val db = AppDatabase.getDatabase(view.context)
+        val clientDao = db.clientDao()
+
+        // getting the recyclerview by its id
+        val recyclerview = binding.recyclerview
+
+        // this creates a vertical layout Manager
+        recyclerview.layoutManager = LinearLayoutManager(activity)
+
+        // ArrayList of class ItemsViewModel
+        val data = clientDao.getAll()
+
+        // This will pass the ArrayList to our Adapter
+        val adapter = ClientListAdapter(data, requireActivity().parent)
+
+        // Setting the Adapter with the recyclerview
+        recyclerview.adapter = adapter
+
+        binding.fab.setOnClickListener {
+            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
+        }
     }
 
     override fun onDestroyView() {

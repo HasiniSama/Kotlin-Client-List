@@ -1,15 +1,20 @@
 package com.kln.android.myapplication.adapter
 
+import android.annotation.SuppressLint
+import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.kln.android.myapplication.R
-import com.kln.android.myapplication.model.ClientsViewModel
+import com.kln.android.myapplication.database.AppDatabase
+import com.kln.android.myapplication.model.Client
 
-class ClientListAdapter(private val mList: List<ClientsViewModel>) : RecyclerView.Adapter<ClientListAdapter.ViewHolder>() {
+class ClientListAdapter(private val mList: List<Client>, private val activity: Activity?) : RecyclerView.Adapter<ClientListAdapter.ViewHolder>() {
 
     // create new views
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -22,17 +27,20 @@ class ClientListAdapter(private val mList: List<ClientsViewModel>) : RecyclerVie
     }
 
     // binds the list items to a view
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        val ItemsViewModel = mList[position]
-
-        // sets the image to the imageview from our itemHolder class
-        holder.imageView.setImageResource(ItemsViewModel.image)
+        val itemsViewModel = mList[position]
 
         // sets the text to the textview from our itemHolder class
-        holder.name.text = ItemsViewModel.name
-        holder.lat.text = "Lat: "+ ItemsViewModel.lat
-        holder.long.text = "Lgt: "+ ItemsViewModel.long
+        holder.name.text = itemsViewModel.name
+        holder.lat.text = "Lat: "+ itemsViewModel.lat
+        holder.long.text = "Lgt: "+ itemsViewModel.lng
+
+        holder.closeBtn.setOnClickListener {
+            holder.clientDao.remove(itemsViewModel)
+            holder.card.removeAllViews()
+        }
 
     }
 
@@ -43,9 +51,13 @@ class ClientListAdapter(private val mList: List<ClientsViewModel>) : RecyclerVie
 
     // Holds the views for adding it to image and text
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
-        val imageView: ImageView = itemView.findViewById(R.id.imageview)
+        val db = AppDatabase.getDatabase(itemView.context)
+        val clientDao = db.clientDao()
+
         val name: TextView = itemView.findViewById(R.id.nameTextView)
         val lat: TextView = itemView.findViewById(R.id.latTextView)
         val long: TextView = itemView.findViewById(R.id.lngTextView)
+        val card: CardView = itemView.findViewById(R.id.clientCard)
+        val closeBtn: ImageButton = itemView.findViewById(R.id.closeButton)
     }
 }

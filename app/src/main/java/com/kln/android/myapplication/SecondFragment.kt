@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.kln.android.myapplication.database.AppDatabase
 import com.kln.android.myapplication.databinding.FragmentSecondBinding
+import com.kln.android.myapplication.model.Client
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -32,7 +34,24 @@ class SecondFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.buttonSecond.setOnClickListener {
+        //creating the room database
+        val db = AppDatabase.getDatabase(view.context)
+        //friend DAO
+        val clientDao = db.clientDao()
+
+        binding.addButton.setOnClickListener {
+            val id = clientDao.getAll().size + 1
+            val name = binding.nameEditText.text.toString();
+            val lat = binding.latEditText.text.toString().toFloat()
+            val lgt = binding.lngEditText.text.toString().toFloat()
+
+            val client = Client(id, name, lat, lgt)
+            clientDao.add(client)
+
+            binding.nameEditText.setText("")
+            binding.latEditText.setText("")
+            binding.lngEditText.setText("")
+
             findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
         }
     }
