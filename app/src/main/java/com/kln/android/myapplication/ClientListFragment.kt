@@ -41,9 +41,7 @@ class ClientListFragment : Fragment() {
 
         // This loop will create 20 Views containing
         // the image with the count of view
-        for (i in 1..20) {
-            data.add(ClientsViewModel(R.drawable.ic_baseline_account_circle_24, "Item " + i, 1.2f, 2.3f))
-        }
+        data.add(ClientsViewModel(R.drawable.ic_baseline_account_circle_24, "Hasini ", 1.2f, 2.3f))
 
         // This will pass the ArrayList to our Adapter
         val adapter = ClientListAdapter(data)
